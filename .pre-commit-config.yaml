@@ -1,0 +1,40 @@
+fail_fast: true
+repos:
+  - repo: https://github.com/psf/black
+    rev: 23.1.0
+    hooks:
+      - id: black
+        additional_dependencies: ["click==8.0.4"]
+        language_version: python3.11
+        args: ["--line-length=79"]
+        exclude: ^.*\b(migrations)\b.*$
+
+  - repo: https://github.com/charliermarsh/ruff-pre-commit
+    rev: "v0.0.239"
+    hooks:
+      - id: ruff
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: "v0.991"
+    hooks:
+      - id: mypy
+        args: [--no-strict-optional, --ignore-missing-imports]
+        exclude: "[a-zA-Z]*/(migrations)/(.)*"
+        additional_dependencies: [
+            # mypy dependencies
+            djangorestframework-stubs,
+            django-stubs,
+            # runtime dependencies
+            django-environ,
+            psycopg2-binary,
+            djangorestframework,
+            drf_yasg,
+            # djangorestframework-simplejwt,
+            django-filter,
+            drf-spectacular,
+            django-debug-toolbar,
+            django-cors-headers
+          ]
+  - repo: https://github.com/timothycrosley/isort
+    rev: 5.12.0
+    hooks:
+      - id: isort
