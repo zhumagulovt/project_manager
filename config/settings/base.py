@@ -64,7 +64,7 @@ THIRD_PARTY_APPS = [
     "drf_spectacular",
 ]
 
-LOCAL_APPS = ["project_manager.projects"]
+LOCAL_APPS = ["project_manager.projects", "project_manager.users"]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
