@@ -23,12 +23,14 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     # OpenAPI schema
     path("api/v1/schema/", SpectacularAPIView.as_view(), name="schema"),
-    # Swagger:
+    # Swagger
     path(
         "api/v1/schema/swagger-ui/",
         SpectacularSwaggerView.as_view(url_name="schema"),
         name="swagger-ui",
     ),
+    # 'users' app
+    path("api/v1/users/", include("project_manager.users.urls")),
 ]
 
 if settings.DEBUG:
