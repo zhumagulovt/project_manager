@@ -47,7 +47,6 @@ ROOT_URLCONF = "config.urls"
 # https://docs.djangoproject.com/en/dev/ref/settings/#wsgi-application
 WSGI_APPLICATION = "config.wsgi.application"
 
-
 # APPS
 # ------------------------------------------------------------------------------
 DJANGO_APPS = [
@@ -68,6 +67,7 @@ LOCAL_APPS = ["project_manager.projects", "project_manager.users"]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
+AUTH_USER_MODEL = "users.User"
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
