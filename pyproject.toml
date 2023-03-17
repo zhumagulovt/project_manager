@@ -32,6 +32,9 @@ python_files = "tests.py test_*.py"
 line-length = 88
 include = '\.pyi?$'
 
+[tool.ruff]
+exclude = ["migrations"]
+
 [tool.isort]
 profile = 'black'
 line_length = 88
