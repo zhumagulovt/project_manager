@@ -1,5 +1,6 @@
 import pytest
 from django.contrib.auth import get_user_model
+from django.urls import reverse
 from rest_framework import status
 
 User = get_user_model()
@@ -19,10 +20,10 @@ def user_data():
 
 @pytest.mark.django_db
 class TestRegistration:
+    url = reverse("registration")
+
     def test_registration(self, api_client, user_data):
-        response = api_client.post(
-            "/api/v1/users/registration/", data=user_data
-        )
+        response = api_client.post(self.url, data=user_data)
 
         assert response.status_code == status.HTTP_201_CREATED
         assert User.objects.count() == 1
@@ -34,9 +35,7 @@ class TestRegistration:
 
         # copy email of existing user
         user_data["email"] = user_factory.email
-        response = api_client.post(
-            "/api/v1/users/registration/", data=user_data
-        )
+        response = api_client.post(self.url, data=user_data)
 
         assert response.status_code == status.HTTP_400_BAD_REQUEST
 
@@ -45,9 +44,7 @@ class TestRegistration:
     ):
         user_data["password_confirm"] = user_data["password"][1:]
 
-        response = api_client.post(
-            "/api/v1/users/registration/", data=user_data
-        )
+        response = api_client.post(self.url, data=user_data)
 
         assert response.status_code == status.HTTP_400_BAD_REQUEST
 
@@ -66,7 +63,5 @@ class TestRegistration:
         user_data["password"] = password
         user_data["password_confirm"] = password
 
-        response = api_client.post(
-            "/api/v1/users/registration/", data=user_data
-        )
+        response = api_client.post(self.url, data=user_data)
         assert response.status_code == status.HTTP_400_BAD_REQUEST
