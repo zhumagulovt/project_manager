@@ -32,7 +32,8 @@ repos:
             django-filter,
             drf-spectacular,
             django-debug-toolbar,
-            django-cors-headers
+            django-cors-headers,
+            celery
           ]
   - repo: https://github.com/timothycrosley/isort
     rev: 5.12.0
