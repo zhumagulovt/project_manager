@@ -14,6 +14,8 @@ drf-spectacular = "^0.25.1"
 django-debug-toolbar = "^3.8.1"
 django-cors-headers = "^3.14.0"
 djangorestframework-simplejwt = "^5.2.2"
+celery = "^5.2.7"
+redis = "^4.5.4"
 
 [tool.poetry.group.dev.dependencies]
 pre-commit = "^3.0.4"
@@ -28,6 +30,7 @@ pytest-factoryboy = "^2.5.1"
 [tool.pytest.ini_options]
 DJANGO_SETTINGS_MODULE = "config.settings.local"
 python_files = "tests.py test_*.py"
+filterwarnings = ["ignore:SelectableGroups dict interface is deprecated. Use select.:DeprecationWarning"]
 
 [tool.black]
 line-length = 88

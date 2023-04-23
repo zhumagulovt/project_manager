@@ -188,3 +188,18 @@ SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=20),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
 }
+
+# CELERY
+DEFAULT_REDIS_HOST = "redis://localhost:6379/0"
+
+CELERY_BROKER_URL = env.str("REDIS_HOST", DEFAULT_REDIS_HOST)
+CELERY_RESULT_BACKEND = env.str("REDIS_HOST", DEFAULT_REDIS_HOST)
+
+# Email configuration
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_FROM = env.str("EMAIL_HOST_USER")
+EMAIL_HOST_USER = env.str("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = env.str("EMAIL_HOST_PASSWORD")
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True

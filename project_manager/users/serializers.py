@@ -4,6 +4,8 @@ from django.core import exceptions
 from rest_framework import serializers
 from rest_framework.settings import api_settings
 
+from .utils import send_email_confirmation_link
+
 User = get_user_model()
 
 
@@ -55,5 +57,5 @@ class RegistrationSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         user = User.objects.create_user(**validated_data)
-
+        send_email_confirmation_link(user, self.context["request"])
         return user
