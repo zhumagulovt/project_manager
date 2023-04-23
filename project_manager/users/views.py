@@ -1,5 +1,3 @@
-import logging
-
 from django.contrib.auth.tokens import default_token_generator
 from drf_spectacular.utils import OpenApiResponse, extend_schema
 from rest_framework import status
@@ -10,8 +8,6 @@ from .models import User
 from .serializers import RegistrationSerializer
 from .services import activate_user
 from .utils import get_user_by_uid
-
-logger = logging.getLogger(__name__)
 
 
 class RegistrationAPIView(GenericAPIView):
