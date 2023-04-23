@@ -59,3 +59,41 @@ class RegistrationSerializer(serializers.ModelSerializer):
         user = User.objects.create_user(**validated_data)
         send_email_confirmation_link(user, self.context["request"])
         return user
+
+
+class ChangePasswordSerializer(serializers.Serializer):
+    """Serializer for changing user's password"""
+
+    current_password = serializers.CharField(required=True)
+    new_password = serializers.CharField(required=True)
+
+    def validate(self, data):
+        current_password = data.get("current_password")
+        new_password = data.get("new_password")
+
+        user = self.context.get("user")
+
+        if not user.check_password(current_password):
+            raise serializers.ValidationError(
+                {"current_password": "Current password is invalid"}
+            )
+
+        if current_password == new_password:
+            raise serializers.ValidationError(
+                {"new_password": "New password is similar to current"}
+            )
+
+        # password validation
+        try:
+            validate_password(new_password, user)
+        except exceptions.ValidationError as e:
+            serializer_error = serializers.as_serializer_error(e)
+            raise serializers.ValidationError(
+                {
+                    "new_password": serializer_error[
+                        api_settings.NON_FIELD_ERRORS_KEY
+                    ]
+                }
+            )
+
+        return data
