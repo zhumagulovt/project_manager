@@ -30,6 +30,7 @@ pytest-factoryboy = "^2.5.1"
 [tool.pytest.ini_options]
 DJANGO_SETTINGS_MODULE = "config.settings.local"
 python_files = "tests.py test_*.py"
+filterwarnings = ["ignore:SelectableGroups dict interface is deprecated. Use select.:DeprecationWarning"]
 
 [tool.black]
 line-length = 88
