@@ -9,6 +9,7 @@ from .views import (  # isort:skip
     ChangePasswordAPIView,
     EmailVerifyAPIView,
     RegistrationAPIView,
+    ResetPasswordAPIView,
 )
 
 urlpatterns = [
@@ -24,5 +25,10 @@ urlpatterns = [
         "change-password/",
         ChangePasswordAPIView.as_view(),
         name="change_password",
+    ),
+    path(
+        "reset-password/",
+        ResetPasswordAPIView.as_view(),
+        name="reset_password",
     ),
 ]

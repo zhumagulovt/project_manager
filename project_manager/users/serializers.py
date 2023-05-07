@@ -97,3 +97,14 @@ class ChangePasswordSerializer(serializers.Serializer):
             )
 
         return data
+
+
+class ResetPasswordSerializer(serializers.Serializer):
+    """Serializer for sending email to reset password"""
+
+    email = serializers.CharField(required=True)
+
+    def validate_email(self, value):
+        if not User.objects.filter(email=value).exists():
+            raise serializers.ValidationError({"email": "Invalid email"})
+        return value

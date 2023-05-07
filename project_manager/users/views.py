@@ -6,9 +6,13 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
 from .models import User
-from .serializers import ChangePasswordSerializer, RegistrationSerializer
+from .serializers import (
+    ChangePasswordSerializer,
+    RegistrationSerializer,
+    ResetPasswordSerializer,
+)
 from .services import activate_user, change_password
-from .utils import get_user_by_uid
+from .utils import get_user_by_uid, send_reset_password_link
 
 
 class RegistrationAPIView(GenericAPIView):
@@ -61,4 +65,18 @@ class ChangePasswordAPIView(GenericAPIView):
 
         return Response(
             "Password successfully changed", status=status.HTTP_200_OK
+        )
+
+
+class ResetPasswordAPIView(GenericAPIView):
+    serializer_class = ResetPasswordSerializer
+
+    def post(self, request):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        user = User.objects.get(email=serializer.validated_data.get("email"))
+        send_reset_password_link(user)
+        return Response(
+            "Link to reset password was sent to email",
+            status=status.HTTP_200_OK,
         )
