@@ -203,3 +203,6 @@ EMAIL_HOST_USER = env.str("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = env.str("EMAIL_HOST_PASSWORD")
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
+
+# Frontend links
+RESET_PASSWORD_LINK = "http://localhost:3000/users/reset-password/"
