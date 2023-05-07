@@ -23,3 +23,24 @@ def send_email_confirmation_link_task(
     message = EmailMessage(title, html_message, to=[user_email])
     message.content_subtype = "html"
     message.send()
+
+
+@app.task()
+def send_reset_password_link_task(
+    user_email: str, first_name: str, last_name: str, reset_password_link: str
+):
+    template = "users/email/reset_password.html"
+    title = "Reset password"
+
+    html_message = render_to_string(
+        template,
+        {
+            "first_name": first_name,
+            "last_name": last_name,
+            "reset_password_link": reset_password_link,
+        },
+    )
+
+    message = EmailMessage(title, html_message, to=[user_email])
+    message.content_subtype = "html"
+    message.send()
