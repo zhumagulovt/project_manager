@@ -9,6 +9,7 @@ from .models import User
 from .serializers import (
     ChangePasswordSerializer,
     RegistrationSerializer,
+    ResetPasswordCompleteSerializer,
     ResetPasswordSerializer,
 )
 from .services import activate_user, change_password
@@ -80,3 +81,18 @@ class ResetPasswordAPIView(GenericAPIView):
             "Link to reset password was sent to email",
             status=status.HTTP_200_OK,
         )
+
+
+class ResetPasswordCompleteAPIView(GenericAPIView):
+    serializer_class = ResetPasswordCompleteSerializer
+
+    def post(self, request):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        change_password(
+            serializer.validated_data.get("user"),
+            serializer.validated_data.get("password"),
+        )
+
+        return Response("Password has been reset", status=status.HTTP_200_OK)
