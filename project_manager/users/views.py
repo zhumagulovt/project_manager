@@ -1,7 +1,6 @@
 from django.contrib.auth.tokens import default_token_generator
 from drf_spectacular.utils import OpenApiResponse, extend_schema
 from rest_framework import status
-from rest_framework.generics import GenericAPIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
@@ -11,9 +10,15 @@ from .serializers import (
     RegistrationSerializer,
     ResetPasswordCompleteSerializer,
     ResetPasswordSerializer,
+    UserSerializer,
 )
 from .services import activate_user, change_password
 from .utils import get_user_by_uid, send_reset_password_link
+
+from rest_framework.generics import (  # isort:skip
+    GenericAPIView,
+    RetrieveUpdateDestroyAPIView,
+)
 
 
 class RegistrationAPIView(GenericAPIView):
@@ -96,3 +101,11 @@ class ResetPasswordCompleteAPIView(GenericAPIView):
         )
 
         return Response("Password has been reset", status=status.HTTP_200_OK)
+
+
+class UserDetailAPIView(RetrieveUpdateDestroyAPIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = UserSerializer
+
+    def get_object(self):
+        return self.request.user
