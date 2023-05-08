@@ -6,7 +6,7 @@ class UserFactory(DjangoModelFactory):
     class Meta:
         model = "users.User"
 
-    email = Faker("user_name")
+    email = Faker("email")
     first_name = Faker("first_name")
     last_name = Faker("last_name")
     password = "password"

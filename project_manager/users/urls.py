@@ -1,17 +1,19 @@
 from django.urls import path
 
-from rest_framework_simplejwt.views import (  # isort:skip
-    TokenObtainPairView,
-    TokenRefreshView,
-)
-
-from .views import (  # isort:skip
+from .views import (
     ChangePasswordAPIView,
     EmailVerifyAPIView,
     RegistrationAPIView,
     ResetPasswordAPIView,
     ResetPasswordCompleteAPIView,
+    UserDetailAPIView,
 )
+
+from rest_framework_simplejwt.views import (  # isort:skip
+    TokenObtainPairView,
+    TokenRefreshView,
+)
+
 
 urlpatterns = [
     path("registration/", RegistrationAPIView.as_view(), name="registration"),
@@ -37,4 +39,5 @@ urlpatterns = [
         ResetPasswordCompleteAPIView.as_view(),
         name="reset_password_complete",
     ),
+    path("profile/", UserDetailAPIView.as_view(), name="user-detail"),
 ]
