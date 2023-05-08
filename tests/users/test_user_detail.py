@@ -13,10 +13,12 @@ class TestUserDetail:
         data = {
             "first_name": updated_user_data.first_name,
             "last_name": updated_user_data.last_name,
+            "email": updated_user_data.email,
         }
 
         assert user.first_name != updated_user_data.first_name
         assert user.last_name != updated_user_data.last_name
+        assert user.email != updated_user_data.email
 
         response = api_client.patch(reverse("user-detail"), data=data)
 
@@ -26,3 +28,4 @@ class TestUserDetail:
 
         assert user.first_name == updated_user_data.first_name
         assert user.last_name == updated_user_data.last_name
+        assert user.email == updated_user_data.email
