@@ -3,6 +3,7 @@ from drf_spectacular.utils import OpenApiResponse, extend_schema
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
+from rest_framework.views import APIView
 
 from .models import User
 from .serializers import (
@@ -42,7 +43,12 @@ class RegistrationAPIView(GenericAPIView):
         return Response(self.success_message, status=status.HTTP_201_CREATED)
 
 
-class EmailVerifyAPIView(GenericAPIView):
+@extend_schema(tags=["email"])
+class EmailVerifyAPIView(APIView):
+    """
+    Verifying email endpoint
+    """
+
     def get(self, request, uid, token):
         try:
             user = get_user_by_uid(uid)
@@ -57,7 +63,12 @@ class EmailVerifyAPIView(GenericAPIView):
         return Response("Bad token", status=400)
 
 
+@extend_schema(tags=["password"])
 class ChangePasswordAPIView(GenericAPIView):
+    """
+    Changing password endpoint
+    """
+
     permission_classes = [IsAuthenticated]
     serializer_class = ChangePasswordSerializer
 
@@ -74,7 +85,12 @@ class ChangePasswordAPIView(GenericAPIView):
         )
 
 
+@extend_schema(tags=["password"])
 class ResetPasswordAPIView(GenericAPIView):
+    """
+    Endpoint for sending request to reset password
+    """
+
     serializer_class = ResetPasswordSerializer
 
     def post(self, request):
@@ -88,7 +104,12 @@ class ResetPasswordAPIView(GenericAPIView):
         )
 
 
+@extend_schema(tags=["password"])
 class ResetPasswordCompleteAPIView(GenericAPIView):
+    """
+    Password resetting endpoint
+    """
+
     serializer_class = ResetPasswordCompleteSerializer
 
     def post(self, request):
@@ -104,6 +125,10 @@ class ResetPasswordCompleteAPIView(GenericAPIView):
 
 
 class UserDetailAPIView(RetrieveUpdateDestroyAPIView):
+    """
+    Current user endpoint
+    """
+
     permission_classes = [IsAuthenticated]
     serializer_class = UserSerializer
 
