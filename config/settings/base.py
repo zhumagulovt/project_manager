@@ -65,7 +65,7 @@ THIRD_PARTY_APPS = [
     "rest_framework_simplejwt",
 ]
 
-LOCAL_APPS = ["project_manager.projects", "project_manager.users"]
+LOCAL_APPS = ["project_manager.workspaces", "project_manager.users"]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
