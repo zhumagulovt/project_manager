@@ -3,9 +3,12 @@
 The backend server uses the Django framework.
 This documentation explains how to configure, launch and test backend server.
 
+Here you can see [database design](database_design.pdf)
+
 **Note:** This documentation for local development only, see DEPLOY.md for deploying documentation.
 
 **Assumption:** we suppose that we start in `project_manager` directory.
+
 
 ## Enviroment requirements
 
