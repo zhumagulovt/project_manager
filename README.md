@@ -9,6 +9,8 @@ Here you can see [database design](database_design.pdf)
 
 **Assumption:** we suppose that we start in `project_manager` directory.
 
+## Database design
+![datatabase design](database_design.png)
 
 ## Enviroment requirements
 
