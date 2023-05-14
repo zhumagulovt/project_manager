@@ -1,0 +1,36 @@
+name: Django Test with Pytest using docker compose
+
+on:
+    workflow_call:
+    workflow_dispatch:
+    push:
+       branches: ['**']
+    pull_request:
+        branches: ['**']
+
+jobs:
+  simple_build:
+    runs-on: ubuntu-latest
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Setup Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+           python-version: 3.11
+      - name: Install Poetry
+        run: |
+            pip install poetry
+      - name: Install requirements
+        run: |
+            poetry install --no-root
+      - name: 'Create env file'
+        run: |
+          cp .env.example .env
+      - name: Run tests
+        env:
+          DEBUG: "False"
+        run: |
+            docker compose up -d --build
+            docker compose exec web pytest
