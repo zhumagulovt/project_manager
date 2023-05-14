@@ -1,7 +1,5 @@
 from .base import *  # noqa
 
-DEBUG = True
-
 ALLOWED_HOSTS = ["localhost", "0.0.0.0", "127.0.0.1"]
 
 # django-debug-toolbar

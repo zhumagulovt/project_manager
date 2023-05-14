@@ -1,6 +1,8 @@
 from .base import *  # noqa
 from .base import env
 
+DEBUG = False
+
 ALLOWED_HOSTS = env.list("ALLOWED_HOSTS")
 
 # django-cors-headers
