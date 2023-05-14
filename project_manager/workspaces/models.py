@@ -37,4 +37,3 @@ class List(ContentModel):
     workspace = models.ForeignKey(
         Workspace, related_name="lists", on_delete=models.CASCADE
     )
-    avatar = models.ImageField(upload_to="lists/avatars", blank=True)
