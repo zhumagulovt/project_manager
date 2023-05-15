@@ -4,16 +4,16 @@ from project_manager.users.models import User
 
 
 class ContentModel(models.Model):
-    """Abstract model for repeating fields: title, content"""
+    """Abstract model for repeating fields: name, description"""
 
-    title = models.CharField(max_length=150)
-    content = models.TextField()
+    name = models.CharField(max_length=150)
+    description = models.TextField()
 
     class Meta:
         abstract = True
 
     def __str__(self) -> str:
-        return self.title
+        return self.name
 
 
 class Workspace(ContentModel):
