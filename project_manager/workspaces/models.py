@@ -33,7 +33,7 @@ class UserWorkspace(models.Model):
     is_admin = models.BooleanField(default=False)
 
 
-class List(ContentModel):
+class TaskList(ContentModel):
     workspace = models.ForeignKey(
         Workspace, related_name="lists", on_delete=models.CASCADE
     )
